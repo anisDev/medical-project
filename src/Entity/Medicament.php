@@ -19,17 +19,17 @@ class Medicament
 	/**
 	 * @ORM\Column(type="string", length=100)
 	 */
-    private $name;
+    private $nom;
 
 	/**
-	 * @ORM\Column(type="decimal", scale=2, nullable=true)
+	 * @ORM\Column(type="string", nullable=true)
 	 */
-	private $price;
+	private $posologie;
 
      /**
-      * @ORM\Column(type="text")
+      * @ORM\Column(type="text", nullable=true)
       */
-     private $description;
+     private $contreIndication;
 
     public function getId()
     {
@@ -39,19 +39,19 @@ class Medicament
 	/**
 	 * @return mixed
 	 */
-	public function getName()
+	public function getNom()
 	{
-		return $this->name;
+		return $this->nom;
 	}
 
 	/**
-	 * @param mixed $name
+	 * @param mixed $nom
 	 *
 	 * @return $this
 	 */
-	public function setName($name)
+	public function setNom($nom)
 	{
-		$this->name = $name;
+		$this->nom = $nom;
 
 		return $this;
 	}
@@ -59,19 +59,19 @@ class Medicament
 	/**
 	 * @return mixed
 	 */
-	public function getPrice()
+	public function getPosologie()
 	{
-		return $this->price;
+		return $this->posologie;
 	}
 
 	/**
-	 * @param mixed $price
+	 * @param mixed $posologie
 	 *
 	 * @return $this
 	 */
-	public function setPrice($price)
+	public function setPosologie($posologie)
 	{
-		$this->price = $price;
+		$this->posologie = $posologie;
 
 		return $this;
 	}
@@ -79,19 +79,19 @@ class Medicament
 	/**
 	 * @return mixed
 	 */
-	public function getDescription()
+	public function getContreIndication()
 	{
-		return $this->description;
+		return $this->contreIndication;
 	}
 
 	/**
-	 * @param mixed $description
+	 * @param mixed ContreIndication
 	 *
 	 * @return $this
 	 */
-	public function setDescription($description)
+	public function setContreIndication($ContreIndication)
 	{
-		$this->description = $description;
+		$this->contreIndication = $ContreIndication;
 
 		return $this;
 	}

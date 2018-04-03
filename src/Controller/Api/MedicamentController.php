@@ -10,22 +10,22 @@ use Symfony\Component\Routing\Annotation\Route;
 use Swagger\Annotations as SWG;
 
 
-class Medicamentcontroller extends Controller
+class MedicamentController extends Controller
 {
 	/**
 	 * @SWG\Tag(name="list_medicaments")
 	 * @Route("/api/medicaments", methods={"GET"})
 	 * @SWG\Response( response=200,description="Returns all the medicaments" )
 	 */
-	public function testAction(){
+	public function listMedicamentAction(){
 		$medicaments = $this->getDoctrine()->getRepository('App:Medicament')->findAll();
 		$data = [];
 		foreach ($medicaments as $medicament) {
 			$data[] = [
 				'id'     => $medicament->getId(),
-				'name'     => $medicament->getName(),
-				'price'  => $medicament->getPrice(),
-				'description' => $medicament->getDescription(),
+				'nom'     => $medicament->getNom(),
+				'posologie'  => $medicament->getPosologie(),
+				'contreIndication' => $medicament->getContreIndication(),
 			];
 		}
 
@@ -36,18 +36,18 @@ class Medicamentcontroller extends Controller
 	 * @SWG\Tag(name="add_medicament")
 	 * @Route("/api/medicaments", methods={"POST"})
 	 * @SWG\Response( response=200,description="add new medicament" )
-	 * @SWG\Parameter(name="name", in="query", type="string", description="medicament name", required=true)
-	 * @SWG\Parameter(name="price", in="query", type="number", description="medicament price", required=true)
-	 * @SWG\Parameter(name="description", in="query", type="string", description="medicament description",
+	 * @SWG\Parameter(name="nom", in="query", type="string", description="medicament nom", required=true)
+	 * @SWG\Parameter(name="posologie", in="query", type="string", description="medicament posologie", required=true)
+	 * @SWG\Parameter(name="contreIndication", in="query", type="string", description="medicament contre indication",
 	 *     required=true)
 	 */
 	public function addMedicamentAction(Request $request)
 	{
 		$em = $this->getDoctrine()->getManager();
 		$medicament = new Medicament();
-		$medicament->setName($request->query->get('name'));
-		$medicament->setPrice($request->query->get('price'));
-		$medicament->setDescription($request->query->get('description'));
+		$medicament->setNom($request->query->get('nom'));
+		$medicament->setPosologie($request->query->get('posologie'));
+		$medicament->setContreIndication($request->query->get('contreIndication'));
 		$em->persist($medicament);
 		$em->flush();
 		return new JsonResponse('done');
@@ -58,9 +58,9 @@ class Medicamentcontroller extends Controller
 	 * @Route("/api/medicaments", methods={"PUT"})
 	 * @SWG\Response( response=200,description="edit existing medicament" )
 	 * @SWG\Parameter(name="id", in="query", type="number", description="medicament id", required=true)
-	 * @SWG\Parameter(name="name", in="query", type="string", description="medicament name")
-	 * @SWG\Parameter(name="price", in="query", type="number", description="medicament price")
-	 * @SWG\Parameter(name="description", in="query", type="string", description="medicament description")
+	 * @SWG\Parameter(name="nom", in="query", type="string", description="medicament nom")
+	 * @SWG\Parameter(name="posologie", in="query", type="string", description="medicament posologie")
+	 * @SWG\Parameter(name="contreIndication", in="query", type="string", description="medicament contre indication")
 	 */
 	public function editMedicalAction(Request $request)
 	{
@@ -72,12 +72,12 @@ class Medicamentcontroller extends Controller
 		if(!$medicament)
 			throw $this->createNotFoundException('Unable to find medicament entity');
 
-		if($request->query->get('name'))
-			$medicament->setName($request->query->get('name'));
-		if($request->query->get('price'))
-			$medicament->setPrice($request->query->get('price'));
-		if($request->query->get('description'))
-			$medicament->setDescription($request->query->get('description'));
+		if($request->query->get('nom'))
+			$medicament->setNom($request->query->get('nom'));
+		if($request->query->get('posologie'))
+			$medicament->setPosologie($request->query->get('posologie'));
+		if($request->query->get('contreIndication'))
+			$medicament->setContreIndication($request->query->get('contreIndication'));
 
 		$em->persist($medicament);
 		$em->flush();
