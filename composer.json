@@ -4,6 +4,7 @@
     "require": {
         "php": "^7.1.3",
         "ext-iconv": "*",
+        "friendsofsymfony/elastica-bundle": "^5.0",
         "friendsofsymfony/rest-bundle": "^2.3",
         "jms/serializer-bundle": "^2.3",
         "nelmio/api-doc-bundle": "^3.2",
@@ -62,7 +63,7 @@
     "extra": {
         "symfony": {
             "id": "01CA5EFKCYG1J699S566Z6ZH6X",
-            "allow-contrib": false
+            "allow-contrib": true
         }
     }
 }

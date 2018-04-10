@@ -85,4 +85,25 @@ class MedicamentController extends Controller
 		return new JsonResponse('done');
 	}
 
+	/**
+	 * @SWG\Tag(name="delete_medicament")
+	 * @Route("/api/medicaments", methods={"DELETE"})
+	 * @SWG\Response( response=200,description="delete existing medicament" )
+	 * @SWG\Parameter(name="id", in="query", type="number", description="medicament id")
+	 */
+	public function deleteMedicamentAction(Request $request)
+	{
+		$id      = $request->query->get('id');
+		$em      = $this->getDoctrine()->getManager();
+		$medicament = $em->getRepository(Medicament::class)
+			->findOneBy(['id' => $id]);
+
+		if (!$medicament) {
+			throw $this->createNotFoundException('Unable to find medicament entity');
+		}
+
+		$em->remove($medicament);
+		$em->flush();
+	}
+
 }
